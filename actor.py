@@ -2,8 +2,8 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-L1_SIZE = 5
-L2_SIZE = 5
+L1_SIZE = 10
+L2_SIZE = 10
 
 
 class Actor(nn.Module):
@@ -24,9 +24,9 @@ class Actor(nn.Module):
     def forward(self, state):
         x = state
         x = self.l1(x)
-        x = F.relu(x)
+        x = F.leaky_relu(x)
         x = self.l2(x)
-        x = F.relu(x)
+        x = F.leaky_relu(x)
         x = self.l3(x)
 
         return torch.tanh(x)

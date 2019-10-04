@@ -1,12 +1,9 @@
-from collections import deque
-
 import gym
-import numpy as np
 
 from agent import Agent
 from settings import ENV_NAME, GAMMA, POTENTIAL_FUNCTION_COEF
 
-n_episodes = 150
+n_episodes = 100
 max_t = 900
 rate_of_print = 1
 
@@ -37,6 +34,5 @@ def ddpg():
 
         if i_episode % rate_of_print == 0:
             print("Episode: {}. Score: {}, Done: {}".format(i_episode / rate_of_print, score, done))
-
 
     return agent, scores

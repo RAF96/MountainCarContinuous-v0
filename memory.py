@@ -18,8 +18,16 @@ class Memory:
 
     def sample(self, batch_size):
         """Возвращает случайную выборку указанного размера"""
+
+        def get_tensor(data):
+            need_tensor = torch.tensor(data, dtype=torch.float)
+            if len(need_tensor.size()) == 1:
+                return need_tensor.reshape(batch_size, -1)  # , -1)
+            else:
+                return need_tensor  # .transpose_(0, 1)
+
         return list(
-            map(lambda elem: torch.Tensor(elem).reshape(batch_size, -1), zip(*random.sample(self.memory, batch_size))))
+            map(lambda elem: get_tensor(elem), zip(*random.sample(self.memory, batch_size))))
 
     def __len__(self):
         return len(self.memory)

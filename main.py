@@ -56,11 +56,12 @@ if __name__ == '__main__':
 
 
     def load():
-        agent = Agent()
+        agent = Agent(2, 1)
         agent.load()
         return agent
 
 
-    agent = train()
+    # agent = train()
+    agent = load()
     print(estimate(agent))
     show(agent)

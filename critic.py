@@ -2,8 +2,8 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-L1_SIZE = 5
-L2_SIZE = 5
+L1_SIZE = 20
+L2_SIZE = 10
 
 
 class Critic(nn.Module):

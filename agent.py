@@ -11,9 +11,9 @@ from settings import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-BATCH_SIZE = 20
+BATCH_SIZE = 40
 BUFFER_SIZE = 1000
-PROBABILITY_RAND_STEP = 0.2
+PROBABILITY_RAND_STEP = 0.1
 TAU = 0.001
 
 
@@ -44,8 +44,9 @@ class Agent:
         self._memory.push((state, action, reward, next_state, done))
 
         if len(self._memory) > BATCH_SIZE:
-            samples = self._memory.sample(BATCH_SIZE)
-            self.learn(samples)
+            for _ in range(UPDATES_PER_STEP):
+                samples = self._memory.sample(BATCH_SIZE)
+                self.learn(samples)
 
     def act(self, state):
         state = torch.from_numpy(state).float().to(device)
@@ -98,5 +99,7 @@ class Agent:
         torch.save(self._critic_local.state_dict(), CRITIC_PATH)
 
     def load(self):
-        self._actor_local = torch.load(ACTOR_PATH)
-        self._critic_local = torch.load(CRITIC_PATH)
+        self._actor_local.load_state_dict(torch.load(ACTOR_PATH))
+        self._actor_local.eval()
+        self._critic_local.load_state_dict(torch.load(CRITIC_PATH))
+        self._critic_local.eval()
