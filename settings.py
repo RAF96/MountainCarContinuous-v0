@@ -1,0 +1,9 @@
+ENV_NAME = 'MountainCarContinuous-v0'
+MOCK = True
+GAMMA = 0.9
+RANDOM_SEED = 42
+POTENTIAL_FUNCTION_COEF = 300
+
+COMMON_PATH = './'
+CRITIC_PATH = COMMON_PATH + "critic.pth"
+ACTOR_PATH = COMMON_PATH + "actor.pth"
